@@ -37,3 +37,38 @@ units.forEach((unit, idx) => {
 });
 
 updateProgress();
+
+
+const sidebar = document.querySelector('.sidebar');
+const sidebarToggle = document.querySelector('.sidebar-toggle');
+
+function setSidebarCollapsed(collapsed) {
+  if (!sidebar || !sidebarToggle) {
+    return;
+  }
+
+  sidebar.dataset.collapsed = String(collapsed);
+  sidebarToggle.setAttribute('aria-expanded', String(!collapsed));
+  sidebarToggle.textContent = collapsed ? 'Show map' : 'Hide map';
+}
+
+if (sidebar && sidebarToggle) {
+  const mobileQuery = window.matchMedia('(max-width: 980px)');
+
+  const syncSidebarState = (event) => {
+    setSidebarCollapsed(event.matches);
+  };
+
+  syncSidebarState(mobileQuery);
+
+  if (typeof mobileQuery.addEventListener === 'function') {
+    mobileQuery.addEventListener('change', syncSidebarState);
+  } else if (typeof mobileQuery.addListener === 'function') {
+    mobileQuery.addListener(syncSidebarState);
+  }
+
+  sidebarToggle.addEventListener('click', () => {
+    const isCollapsed = sidebar.dataset.collapsed === 'true';
+    setSidebarCollapsed(!isCollapsed);
+  });
+}
