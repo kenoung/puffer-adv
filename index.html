@@ -1,0 +1,178 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Puffer Advantage Academy</title>
+    <meta
+      name="description"
+      content="Learn puffer advantage from scratch using Math Academy style principles: tiny steps, active recall, and mastery checks."
+    />
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;700;800&family=Space+Grotesk:wght@600;700&display=swap"
+      rel="stylesheet"
+    />
+    <link rel="stylesheet" href="styles.css" />
+  </head>
+  <body>
+    <div class="bg-grid" aria-hidden="true"></div>
+    <header class="hero">
+      <nav class="top-nav container">
+        <div class="brand">🐡 Puffer Advantage</div>
+        <a class="btn btn-small" href="#lesson-path">Start Learning</a>
+      </nav>
+
+      <section class="hero-content container">
+        <p class="eyebrow">Math Academy Way • Justin Skycak Principles</p>
+        <h1>Master Puffer Advantage <span>from First Principles</span></h1>
+        <p class="hero-sub">
+          Learn with tiny, connected steps. Every concept builds on prerequisite intuition,
+          every section has a quick check, and every mistake is feedback.
+        </p>
+        <div class="hero-actions">
+          <a class="btn" href="#lesson-1">Begin Lesson 1</a>
+          <a class="btn btn-ghost" href="#practice">Jump to Practice</a>
+        </div>
+      </section>
+    </header>
+
+    <main>
+      <section class="principles container" id="principles">
+        <h2>How this course is designed</h2>
+        <div class="principle-grid">
+          <article>
+            <h3>1) Tiny Steps</h3>
+            <p>
+              We never leap over hidden gaps. Each idea is broken into a minimal step you can
+              digest in under 2 minutes.
+            </p>
+          </article>
+          <article>
+            <h3>2) Active Recall</h3>
+            <p>
+              You answer before seeing the solution. This creates durable understanding instead
+              of passive familiarity.
+            </p>
+          </article>
+          <article>
+            <h3>3) Mastery Loop</h3>
+            <p>
+              If a check fails, revisit the exact prerequisite and retry. Progress is mastery, not
+              speed.
+            </p>
+          </article>
+        </div>
+      </section>
+
+      <section class="path container" id="lesson-path">
+        <h2>Your learning path</h2>
+        <ol>
+          <li><a href="#lesson-1">Lesson 1: What is Puffer Advantage?</a></li>
+          <li><a href="#lesson-2">Lesson 2: Build the Core Model</a></li>
+          <li><a href="#lesson-3">Lesson 3: Compute It by Hand</a></li>
+          <li><a href="#lesson-4">Lesson 4: Decision Rules & Edge Cases</a></li>
+        </ol>
+      </section>
+
+      <section class="lesson container" id="lesson-1">
+        <p class="lesson-tag">Lesson 1</p>
+        <h2>What is Puffer Advantage?</h2>
+        <p>
+          Think of <strong>puffer advantage</strong> as a measurable edge gained when a puffer-like
+          strategy shifts expected outcomes in your favor.
+        </p>
+        <div class="callout">
+          <p>
+            Core idea: <strong>Advantage = Expected Gain with strategy − Expected Gain without strategy</strong>
+          </p>
+        </div>
+        <details>
+          <summary>Quick check</summary>
+          <p>
+            If your expected gain rises from 0.42 to 0.57, your puffer advantage is
+            <strong>0.15</strong>.
+          </p>
+        </details>
+      </section>
+
+      <section class="lesson container" id="lesson-2">
+        <p class="lesson-tag">Lesson 2</p>
+        <h2>Build the core model in 3 atoms</h2>
+        <div class="atom-grid">
+          <article>
+            <h3>Atom A: Baseline</h3>
+            <p>Define the outcome distribution without puffer behavior.</p>
+          </article>
+          <article>
+            <h3>Atom B: Puffer Shift</h3>
+            <p>Model how puffer behavior changes probabilities or payoffs.</p>
+          </article>
+          <article>
+            <h3>Atom C: Net Edge</h3>
+            <p>Subtract baseline expectation from shifted expectation.</p>
+          </article>
+        </div>
+        <details>
+          <summary>Mastery prompt</summary>
+          <p>
+            Explain in one sentence why Atom A must be computed first. (Hint: advantage is relative.)
+          </p>
+        </details>
+      </section>
+
+      <section class="lesson container" id="lesson-3">
+        <p class="lesson-tag">Lesson 3</p>
+        <h2>Compute puffer advantage by hand</h2>
+        <div class="formula-card">
+          <code>E = Σ p(x) · v(x)</code>
+          <p>
+            Compute expected value before and after the puffer shift, then take the difference.
+          </p>
+        </div>
+        <div class="example">
+          <h3>Micro-example</h3>
+          <ul>
+            <li>Baseline EV = 0.30</li>
+            <li>With puffer EV = 0.48</li>
+            <li><strong>Puffer Advantage = 0.18</strong></li>
+          </ul>
+        </div>
+      </section>
+
+      <section class="lesson container" id="lesson-4">
+        <p class="lesson-tag">Lesson 4</p>
+        <h2>Decision rules & edge cases</h2>
+        <ul class="checklist">
+          <li>Positive advantage + stable assumptions → apply strategy.</li>
+          <li>Advantage near zero → gather more data or reduce model uncertainty.</li>
+          <li>Advantage flips under small parameter shifts → treat as fragile.</li>
+        </ul>
+      </section>
+
+      <section class="practice container" id="practice">
+        <h2>1-minute active recall drill</h2>
+        <p>Answer first, then reveal.</p>
+        <div class="qa">
+          <button class="reveal" data-target="a1">Q1: Why is baseline mandatory?</button>
+          <p id="a1" class="answer">Because advantage is defined relative to a no-puffer reference.</p>
+        </div>
+        <div class="qa">
+          <button class="reveal" data-target="a2">Q2: What's the only formula you must memorize?</button>
+          <p id="a2" class="answer">Advantage = E(with puffer) − E(without puffer).</p>
+        </div>
+        <div class="qa">
+          <button class="reveal" data-target="a3">Q3: What should you do when advantage is fragile?</button>
+          <p id="a3" class="answer">Stress-test assumptions before action.</p>
+        </div>
+      </section>
+    </main>
+
+    <footer class="container footer">
+      <p>Built for deep understanding: prerequisites, retrieval, mastery.</p>
+    </footer>
+
+    <script src="script.js"></script>
+  </body>
+</html>
