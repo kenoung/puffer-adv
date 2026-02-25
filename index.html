@@ -30,12 +30,23 @@
     </header>
 
     <main class="layout">
-      <aside class="sidebar" aria-label="Course overview">
-        <h2>Course map</h2>
-        <p class="sidebar-copy">
-          Work top to bottom. Each unit has three actions: explain, practice, and self-check.
-        </p>
-        <ol class="topic-list">
+      <aside class="sidebar" aria-label="Course overview" data-collapsed="false">
+        <div class="sidebar-header">
+          <h2>Course map</h2>
+          <button
+            class="sidebar-toggle"
+            type="button"
+            aria-expanded="true"
+            aria-controls="course-map-content"
+          >
+            Hide map
+          </button>
+        </div>
+        <div id="course-map-content" class="sidebar-content">
+          <p class="sidebar-copy">
+            Work top to bottom. Each unit has three actions: explain, practice, and self-check.
+          </p>
+          <ol class="topic-list">
           <li><a href="#u1">1. What RL is</a></li>
           <li><a href="#u2">2. Returns & discounting</a></li>
           <li><a href="#u3">3. Values and prediction targets</a></li>
@@ -53,7 +64,8 @@
           <li><a href="#u15">15. Puffer Advantage</a></li>
           <li><a href="#u16">16. Why PufferLib uses it</a></li>
           <li><a href="#u17">17. Sanity checks and failure modes</a></li>
-        </ol>
+          </ol>
+        </div>
       </aside>
 
       <section class="units" aria-label="Learning units">
