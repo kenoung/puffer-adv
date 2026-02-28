@@ -1,0 +1,267 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Mathacademy Way — Deployment-Ready RL Curriculum</title>
+  <style>
+    :root{--bg:#f7f8fa;--panel:#fff;--text:#1c1f24;--muted:#5d6472;--line:#d8dde6;--accent:#2b6cf6;--ok:#1f9d55;--warn:#b7791f;--bad:#c53030}
+    @media (prefers-color-scheme: dark){:root{--bg:#0f1115;--panel:#171a21;--text:#e8ecf4;--muted:#a4adbd;--line:#2a3140;--accent:#74a4ff;--ok:#68d391;--warn:#f6ad55;--bad:#fc8181}}
+    *{box-sizing:border-box} body{margin:0;font-family:system-ui,-apple-system,Segoe UI,Roboto,Arial,sans-serif;background:var(--bg);color:var(--text)}
+    a{color:var(--accent)} .layout{display:grid;grid-template-columns:280px 1fr;min-height:100vh}
+    nav{border-right:1px solid var(--line);padding:1rem;position:sticky;top:0;height:100vh;overflow:auto;background:var(--panel)}
+    nav h2{font-size:1rem;margin:.3rem 0 .8rem} nav ul{list-style:none;padding:0;margin:0} nav li{margin:.35rem 0}
+    .main{padding:1.2rem;max-width:1200px}.card{background:var(--panel);border:1px solid var(--line);border-radius:10px;padding:1rem;margin:.7rem 0}
+    .meta{color:var(--muted);font-size:.9rem}.header{display:flex;justify-content:space-between;gap:1rem;flex-wrap:wrap;align-items:flex-start}
+    .header h1{margin:.1rem 0}.controls{display:flex;gap:.6rem;flex-wrap:wrap;margin:.8rem 0}
+    input,button{padding:.45rem .6rem;border-radius:8px;border:1px solid var(--line);background:var(--panel);color:var(--text)} button{cursor:pointer}
+    .kprow{display:grid;grid-template-columns:1fr auto;gap:.7rem;align-items:center}
+    .pill{font-size:.75rem;border:1px solid var(--line);padding:.1rem .5rem;border-radius:999px;color:var(--muted)}
+    .status-pass{color:var(--ok);font-weight:600}.status-fail{color:var(--bad);font-weight:600}.status-na{color:var(--muted)}
+    table{width:100%;border-collapse:collapse} th,td{border:1px solid var(--line);padding:.45rem;text-align:left;vertical-align:top}
+    details{border:1px solid var(--line);border-radius:8px;padding:.55rem;background:rgba(127,127,127,.04);margin:.55rem 0} summary{cursor:pointer;font-weight:600}
+    .small{font-size:.85rem;color:var(--muted)} .grid2{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:.8rem}
+    @media (max-width:980px){.layout{grid-template-columns:1fr} nav{position:relative;height:auto;border-right:none;border-bottom:1px solid var(--line)}}
+    @media print{nav,.controls,#searchWrap,.no-print{display:none!important}.layout{display:block}.main{padding:0}.card,details{border:1px solid #999;break-inside:avoid}}
+  </style>
+</head>
+<body>
+<div class="layout">
+  <nav>
+    <h2>Program Navigation</h2>
+    <ul>
+      <li><a href="#exec">Executive Summary</a></li>
+      <li><a href="#unit-0">Unit 0</a></li><li><a href="#unit-1">Unit 1</a></li><li><a href="#unit-2">Unit 2</a></li><li><a href="#unit-3">Unit 3</a></li><li><a href="#unit-4">Unit 4</a></li><li><a href="#unit-5">Unit 5</a></li><li><a href="#unit-6">Unit 6</a></li>
+      <li><a href="#assessments">Assessments</a></li>
+      <li><a href="#schedules">Schedules (5/10/20h)</a></li>
+      <li><a href="#memory">Memory Aids</a></li>
+      <li><a href="#json-export">JSON Export</a></li>
+    </ul>
+  </nav>
+  <main class="main">
+    <section class="card header">
+      <div>
+        <h1>Mathacademy Way: Deployment-Ready RL for Legged Robots</h1>
+        <div class="meta">A structured, mastery-based program aligned to the provided source article.</div>
+      </div>
+      <div class="meta">
+        <div><strong>Source:</strong> <a href="https://thehumanoid.ai/deployment-ready-rl-pitfalls-lessons-and-best-practices/">thehumanoid.ai article</a></div>
+        <div><strong>Last updated:</strong> <span id="today"></span></div>
+        <button class="no-print" onclick="window.print()">Print</button>
+      </div>
+    </section>
+
+    <section id="searchWrap" class="card">
+      <div class="controls">
+        <input id="search" aria-label="Search knowledge points" placeholder="Search KP by ID or name" />
+        <button id="clearSearch" type="button">Clear</button>
+        <button id="downloadJson" type="button">Download JSON</button>
+      </div>
+      <div id="dashboard" class="small"></div>
+      <div id="dueList" class="small"></div>
+    </section>
+
+    <section id="exec" class="card">
+      <h2>Executive Summary</h2>
+      <p><strong>Scope:</strong> deployment-oriented RL for legged robots, focusing on action/observation design, sim-real mismatch, asymmetric actor-critic, distillation, curriculum, rewards, and motion references; emphasizes that system identification and state estimation usually matter more than fancier RL tricks.</p>
+      <p><strong>Mastery definition:</strong> pass each KP at >=80% mini-quiz score and a correct worked item; complete 2 projects (guided + open-ended) with >=3/4.</p>
+      <p><strong>Spaced retrieval:</strong> +1d, +7d, +21d, +60d from mastered date. If a learner fails the same KP twice in a row, reopen that KP and key prerequisite KP(s).</p>
+    </section>
+
+    <div id="units"></div>
+
+    <section id="assessments" class="card">
+      <h2>Assessments</h2>
+      <h3>Diagnostic (10–15 min)</h3>
+      <ol>
+        <li>Why can high-fidelity simulation still fail after deployment?</li>
+        <li>When would you favor reference-conditioned RL over vanilla task rewards?</li>
+        <li>What observation signal helps orientation awareness without adding full pose history?</li>
+        <li>Why can torque clipping reduce useful exploration?</li>
+        <li>When is history/recurrence justified vs better state estimation?</li>
+      </ol>
+      <details><summary>Diagnostic answer key</summary><ol><li>Sim→real mismatch and unmodeled dynamics/state-estimation limits can dominate.</li><li>When behavior style and motion intent are under-specified by simple rewards.</li><li>Projected gravity.</li><li>Saturation can collapse action effect and create misleading gradients/policy behavior.</li><li>Use history when partial observability remains after improving estimators and core observations.</li></ol></details>
+      <h3>Summative</h3>
+      <p>Sections: <strong>Design</strong>, <strong>Debug</strong>, <strong>Motion</strong>.</p>
+      <table><tr><th>Section</th><th>0</th><th>1</th><th>2</th><th>3</th><th>4</th></tr>
+      <tr><td>Design</td><td>No coherent framing</td><td>Fragmented choices</td><td>Reasonable but shallow</td><td>Clear and mostly justified</td><td>Strong design with tradeoff reasoning</td></tr>
+      <tr><td>Debug</td><td>No prioritization</td><td>Random debugging</td><td>Some ordering</td><td>Good order (system ID/estimation first)</td><td>Excellent diagnosis + remediation plan</td></tr>
+      <tr><td>Motion</td><td>No strategy</td><td>Unjustified strategy</td><td>Basic rationale</td><td>Good strategy with constraints</td><td>Strong defense of BC↔RL positioning</td></tr>
+      </table>
+      <h3>Projects / Capstones</h3>
+      <p><strong>P1 guided:</strong> Deployment-ready RL design doc. Deliverables: action/obs design, mismatch plan, curriculum/reward plan, risk log, evaluation checklist. Rubric 0–4: completeness, coherence, deployment realism, validation path.</p>
+      <p><strong>P2 open-ended:</strong> Choose a motion-reference strategy and defend it. Deliverables: selected strategy, alternatives rejected, expected tradeoffs, ablation plan. Rubric 0–4: argument quality, source alignment, technical depth, practicality.</p>
+    </section>
+
+    <section id="schedules" class="card">
+      <h2>Schedules</h2>
+      <h3>5h/week (6 weeks)</h3>
+      <ul>
+        <li>W1 U1: DRL-01..03; Review: DRL-01, DRL-02</li><li>W2 U2: DRL-04..07; Review: DRL-03, DRL-04</li><li>W3 U3: DRL-08..11; Review: DRL-06, DRL-08</li><li>W4 U4: DRL-12..15; Review: DRL-10, DRL-12</li><li>W5 U5: DRL-16..20; Review: DRL-14, DRL-17</li><li>W6 U6+Capstone+Summative: DRL-21..22; Review: DRL-19, DRL-22</li>
+      </ul>
+      <h3>10h/week (3 weeks)</h3>
+      <ul><li>W1 U1+U2: DRL-01..07; Review: DRL-01, DRL-04, DRL-06</li><li>W2 U3+U4: DRL-08..15; Review: DRL-08, DRL-12, DRL-14</li><li>W3 U5+U6+Projects+Summative: DRL-16..22; Review: DRL-17, DRL-19, DRL-22</li></ul>
+      <h3>20h/week (2 weeks)</h3>
+      <ul><li>W1 U1–U3: DRL-01..11; Review: DRL-03, DRL-06, DRL-10</li><li>W2 U4–U6+Projects+Summative: DRL-12..22; Review: DRL-14, DRL-19, DRL-22</li></ul>
+    </section>
+
+    <section id="memory" class="card">
+      <h2>Memory Aids</h2>
+      <h3>Glossary</h3>
+      <ul>
+        <li><strong>Projected gravity:</strong> gravity vector expressed in robot/body frame for orientation awareness.</li>
+        <li><strong>Asymmetric actor-critic:</strong> actor uses deployable observations; critic can use privileged training info.</li>
+        <li><strong>Student–teacher distillation:</strong> train a deployable student from a stronger teacher policy.</li>
+        <li><strong>Net-positive reward:</strong> reward design where useful behavior yields positive signal early.</li>
+        <li><strong>Reward kernels (L1/L2 exponential):</strong> shaping choices with differing fidelity/jitter behavior.</li>
+        <li><strong>Policy standard deviation:</strong> exploration scale parameter tracked during training.</li>
+        <li><strong>Soft vs hard constraints:</strong> penalties versus strict bounds/termination/saturation constraints.</li>
+        <li><strong>System identification:</strong> estimating plant parameters to reduce sim-real mismatch.</li>
+      </ul>
+      <h3>One-page cheat sheet</h3>
+      <ul><li>Start with simpler sim; add realism iteratively.</li><li>Low gains for exploration; avoid torque clipping; Ka as exploration dial.</li><li>Minimal obs; add extras only with justification; use projected gravity.</li><li>Mismatch tools: asymmetric critic; teacher→student distill.</li><li>Curriculum: 75/50 success heuristic.</li><li>Rewards: big positive task terms; small penalties; avoid spiky dominance; net-positive early.</li><li>Train 2–5× past “looks converged”; log std and expect decrease/convergence.</li><li>Debug order: system ID + state estimator first.</li></ul>
+      <h3>Checklists</h3>
+      <h4>Deployment-readiness checklist</h4>
+      <ul><li>System ID assumptions reviewed.</li><li>State estimator validated on target hardware.</li><li>Action saturation margins checked.</li><li>Observation set minimal and justified.</li><li>Teacher/student gap tested.</li><li>Fallback safety behavior defined.</li></ul>
+      <h4>Reward/curriculum tuning checklist</h4>
+      <ul><li>75/50 thresholds configured.</li><li>Task rewards dominate penalties.</li><li>L1/L2 kernel choice documented.</li><li>Termination conditions audited.</li><li>TD error and policy std monitored.</li></ul>
+      <h3>Anki cards (20)</h3>
+      <table id="ankiTable"><tr><th>#</th><th>Front</th><th>Back</th><th>Copy</th></tr></table>
+    </section>
+
+    <section id="json-export" class="card"><h2>JSON Export</h2><p>Use “Download JSON” to save the curriculum data object embedded in this page.</p></section>
+
+    <script type="application/json" id="curriculum-json"></script>
+  </main>
+</div>
+<script>
+const SOURCE_URL = "https://thehumanoid.ai/deployment-ready-rl-pitfalls-lessons-and-best-practices/";
+const KPBASE = (id,name,type,difficulty,time,unit,overview,prereq=[])=>({id,name,type,difficulty,time,unit,why:"This KP matters because deployment failures are often caused by design choices discussed here.",brief:overview,worked:"Hypothetical worked item: compare two design choices; choose the one aligned to deployment constraints and explain the delta.",practice:["Identify the key decision in this KP.","State one reason this choice helps deployment.","Name one tradeoff to monitor."],practiceAns:["The key decision is the central design lever described by the KP.","It reduces mismatch risk or improves learning stability.","A tradeoff is reduced flexibility or additional tuning burden."],quiz:["Core: define the KP in one sentence.","Core: choose the safer deployment default.","Core: identify a common failure mode.","Near-transfer: adapt the idea to a slightly different task.","Far-transfer: explain how this principle could guide a new robot setup."],quizAns:["Correct if concise and aligned to source framing.","Correct if choice prioritizes deployment robustness.","Correct if failure mode matches the KP.","Correct if adaptation keeps the same principle.","Correct if rationale is consistent and cautious."],errors:["Confusing simulation convenience with deployment readiness.","Over-tuning advanced RL before fundamentals.","Skipping explicit tradeoff reasoning."],prereq,source:SOURCE_URL});
+const kps = [
+KPBASE("BR-01","MDP/POMDP + actor-critic basics","concept/procedure",2,30,0,"Bridge concept: distinguish full observability vs partial observability and basic actor-critic roles.",[]),
+KPBASE("BR-02","PD control & torque limits","concept/procedure",2,30,0,"Bridge concept: understand PD behavior and practical saturation boundaries.",[]),
+KPBASE("BR-03","System ID & state estimation basics","concept/heuristic",2,30,0,"Bridge concept: connect parameter fidelity and estimator quality to deployment outcomes.",[]),
+KPBASE("DRL-01","Sim→real gap & drunken robot syndrome","concept",2,20,1,"Recognize mismatch-induced instability after deployment."),
+KPBASE("DRL-02","Task specification tension: vanilla RL vs references","concept",2,15,1,"Understand when unconstrained task rewards under-specify desired behavior."),
+KPBASE("DRL-03","No replacement for principled system identification","heuristic",3,20,1,"Prioritize system ID before complex RL modifications.",["BR-03"]),
+KPBASE("DRL-04","Residual PD vs feed-forward torque view","concept/procedure",3,25,2,"Frame action outputs through PD residual vs torque interpretation.",["BR-02"]),
+KPBASE("DRL-05","Multi-rate loop & saturation/exploration collapse","concept",3,25,2,"Relate control loop rates and saturation to exploration quality.",["BR-02","DRL-04"]),
+KPBASE("DRL-06","Gain heuristics: Kp torque-limit, Kd≈Kp/20, Ka dial","procedure/heuristic",4,30,2,"Use gain heuristics to balance authority and exploration.",["BR-02","DRL-04","DRL-05"]),
+KPBASE("DRL-07","Deploy low-gain policies + when to distill","procedure",4,30,2,"Deploy low-gain behavior and distill when throughput/deployability requires.",["BR-02","DRL-06"]),
+KPBASE("DRL-08","Minimal observation set + projected gravity","procedure",3,25,3,"Start with minimal deployable observations including projected gravity."),
+KPBASE("DRL-09","When to augment obs: phase/clock/perception/manip","heuristic",3,20,3,"Add observations only when needed by task structure.",["DRL-08"]),
+KPBASE("DRL-10","Velocity/state estimation vs history hacks","procedure",4,25,3,"Prefer better estimation to blind history expansion.",["BR-03","DRL-08"]),
+KPBASE("DRL-11","When history/recurrent is justified","heuristic",4,25,3,"Use recurrence when partial observability remains after estimator improvements."),
+KPBASE("DRL-12","Mismatch as POMDP","concept",3,20,4,"Treat deployment mismatch as partial observability problem.",["BR-01"]),
+KPBASE("DRL-13","Asymmetric actor-critic","procedure",4,25,4,"Train with privileged critic while keeping deployable actor inputs.",["BR-01","DRL-12"]),
+KPBASE("DRL-14","Student–teacher distillation via DAgger/BC","procedure",4,30,4,"Transfer teacher capability into deployable student.",["DRL-12"]),
+KPBASE("DRL-15","Distill for throughput: height scan→depth; env counts","heuristic",3,20,4,"Use distillation to improve training throughput and deployable sensing choices.",["DRL-14"]),
+KPBASE("DRL-16","Terrain curriculum with 75/50 thresholds","procedure",3,20,5,"Progress/regress terrain difficulty using success thresholds."),
+KPBASE("DRL-17","Reward structure: task rewards vs penalties; exp kernels","procedure",4,30,5,"Build rewards where task signal dominates penalties.",["DRL-16"]),
+KPBASE("DRL-18","L1 vs L2 kernels: fidelity vs jitter","heuristic",4,25,5,"Choose kernel behavior based on tracking quality vs smoothness needs.",["DRL-17"]),
+KPBASE("DRL-19","Train longer; TD error; log policy std","procedure",4,25,5,"Continue training beyond early plateaus; monitor TD error/std.",["DRL-05","DRL-17"]),
+KPBASE("DRL-20","Net positive reward; termination pitfalls","procedure",4,25,5,"Avoid penalty-dominated shaping and brittle termination choices.",["DRL-17"]),
+KPBASE("DRL-21","Motion references on BC↔RL spectrum","concept",3,20,6,"Place methods along a behavior-cloning to RL continuum."),
+KPBASE("DRL-22","AMP vs feature-based imitation tradeoffs","concept/heuristic",4,25,6,"Compare adversarial motion priors and feature-driven imitation options.",["DRL-21","DRL-02"])
+];
+const units = [
+{id:0,title:"Unit 0 — Bridge",overview:"You will refresh prerequisites for policy learning, control, and estimation.",note:"Clearly labeled: Unit 0 is not in source.",review:""},
+{id:1,title:"Unit 1 — Deployment framing + failure modes",overview:"You will identify dominant deployment risks and framing decisions.",review:"Interleaved Review R1: DRL-01..03"},
+{id:2,title:"Unit 2 — Action space + gains",overview:"You will set action representations and gains that preserve exploration and deployment safety.",review:"Interleaved Review R2: DRL-04..07"},
+{id:3,title:"Unit 3 — Observations + estimation",overview:"You will design lean observations and decide when estimation/history is warranted.",review:"Interleaved Review R3: DRL-08..11"},
+{id:4,title:"Unit 4 — Mismatch architectures",overview:"You will use asymmetric training and distillation to handle mismatch and deployability constraints.",review:"Interleaved Review R4: DRL-12..15"},
+{id:5,title:"Unit 5 — Curriculum + rewards",overview:"You will tune progressions and reward structure for stable improvement.",review:"Interleaved Review R5: DRL-16..20"},
+{id:6,title:"Unit 6 — Motion references",overview:"You will choose and defend a motion-reference strategy on the BC↔RL spectrum.",review:"Final Mixed Review R6: DRL-01..22"}
+];
+const prereqEdges = [["BR-01","DRL-12"],["BR-01","DRL-13"],["BR-02","DRL-04"],["BR-02","DRL-05"],["BR-02","DRL-06"],["BR-02","DRL-07"],["BR-03","DRL-03"],["BR-03","DRL-10"],["DRL-04","DRL-05"],["DRL-04","DRL-06"],["DRL-05","DRL-06"],["DRL-05","DRL-19"],["DRL-06","DRL-07"],["DRL-08","DRL-09"],["DRL-08","DRL-10"],["DRL-12","DRL-13"],["DRL-12","DRL-14"],["DRL-14","DRL-15"],["DRL-17","DRL-18"],["DRL-17","DRL-19"],["DRL-17","DRL-20"],["DRL-21","DRL-22"]];
+const encompasses = [["DRL-06",["DRL-04","DRL-05"]],["DRL-15",["DRL-13","DRL-14"]],["DRL-19",["DRL-16","DRL-17","DRL-18"]],["DRL-22",["DRL-21","DRL-02"]]];
+const reviewOffsets=[1,7,21,60];
+const storeKey='mathacademy-progress-v1';
+const data={metadata:{title:"Mathacademy Way RL Program",source:SOURCE_URL,last_updated:new Date().toISOString().slice(0,10)},big_ideas:["Deployment-first framing","System ID and estimation before fancy RL","Minimal observations and justified augmentation","Asymmetric training and distillation for mismatch","Curriculum/reward structure and long-horizon monitoring"],knowledge_points:kps,prerequisites:prereqEdges,encompasses,units,spaced_reviews:reviewOffsets,projects:["P1 guided design doc","P2 motion-reference strategy defense"],assessments:{diagnostic:5,summative_sections:["Design","Debug","Motion"]},schedules:{five_hour:"6 weeks",ten_hour:"3 weeks",twenty_hour:"2 weeks"},memory_aids:{glossary:8,anki:20},gaps_and_bridges:["Unit 0 bridge is explicitly not in source"]};
+document.getElementById('curriculum-json').textContent=JSON.stringify(data,null,2);
+document.getElementById('today').textContent = new Date().toISOString().slice(0,10);
+
+function loadProgress(){ try{return JSON.parse(localStorage.getItem(storeKey)||'{}')}catch{return{}} }
+function saveProgress(p){ localStorage.setItem(storeKey,JSON.stringify(p)); }
+function statusOf(rec){ if(!rec) return null; return (Number(rec.quizScore)>=80 && rec.workedCorrect) ? 'PASS':'FAIL'; }
+function dueDates(date){ return reviewOffsets.map(d=>{const x=new Date(date);x.setDate(x.getDate()+d);return x;}); }
+function fmt(d){return d.toISOString().slice(0,10)}
+
+function render(){
+ const progress=loadProgress();
+ const q=(document.getElementById('search').value||'').toLowerCase().trim();
+ const uWrap=document.getElementById('units'); uWrap.innerHTML='';
+ units.forEach(u=>{
+   const sec=document.createElement('section'); sec.className='card'; sec.id='unit-'+u.id;
+   sec.innerHTML=`<h2>${u.title}</h2><p><strong>Unit overview:</strong> ${u.overview}</p>${u.note?`<p><strong>Label:</strong> ${u.note}</p>`:''}${u.review?`<p><strong>${u.review}</strong></p>`:''}<div class="kps"></div><div class="card"><h3>Unit mastery gate</h3><p>Pass all unit KPs at >=80% + worked item correct; if a KP fails twice consecutively, reopen KP + prerequisite.</p></div>`;
+   const kWrap=sec.querySelector('.kps');
+   kps.filter(k=>k.unit===u.id).forEach(k=>{
+     if(q && !(k.id.toLowerCase().includes(q)||k.name.toLowerCase().includes(q))) return;
+     const rec=progress[k.id]||{}; const st=statusOf(rec);
+     const fail2 = rec.failCount>=2;
+     const card=document.createElement('details'); card.open=false;
+     card.innerHTML=`<summary class="kprow"><span><strong>${k.id}</strong> — ${k.name}</span><span class="pill">${st?st:'Not yet scored'}</span></summary>
+       <div class="meta">Type: ${k.type} | Difficulty: ${k.difficulty}/5 | Time: ${k.time} min</div>
+       <p><strong>Why it matters:</strong> ${k.why}</p>
+       <p><strong>Micro-brief:</strong> ${k.brief}</p>
+       <p><strong>Worked example:</strong> ${k.worked} <em>(Key choice: prioritize deployment-safe option.)</em></p>
+       <details><summary>Practice (3 items) + concise solutions</summary><ol>${k.practice.map((p,i)=>`<li>${p}<div class="small">Solution: ${k.practiceAns[i]}</div></li>`).join('')}</ol></details>
+       <details><summary>Mini-quiz (5 items: 3 core, 1 near-transfer, 1 far-transfer) + answer key</summary><ol>${k.quiz.map((x,i)=>`<li>${x}</li>`).join('')}</ol><div class="small"><strong>Answer key:</strong><ol>${k.quizAns.map(a=>`<li>${a}</li>`).join('')}</ol></div></details>
+       <p><strong>Common errors + quick fix:</strong></p><ul>${k.errors.map(e=>`<li>${e}</li>`).join('')}</ul>
+       <div class="grid2">
+         <label><input type="checkbox" data-kp="${k.id}" data-field="mastered" ${rec.mastered?'checked':''}/> Mastered</label>
+         <label>Mini-quiz score (%): <input type="number" min="0" max="100" data-kp="${k.id}" data-field="quizScore" value="${rec.quizScore??''}" style="width:90px"/></label>
+         <label><input type="checkbox" data-kp="${k.id}" data-field="workedCorrect" ${rec.workedCorrect?'checked':''}/> Worked item correct</label>
+         <div>Status: <span class="${st==='PASS'?'status-pass':st==='FAIL'?'status-fail':'status-na'}">${st||'N/A'}</span></div>
+       </div>
+       ${fail2?`<div class="card"><h4>Remediation (auto-shown after two consecutive fails)</h4><p>Likely prerequisite KP(s): ${(k.prereq.length?k.prereq.join(', '):'Review closest prior unit KPs')}.</p><p>Alternate example: hypothetical redesign of the same decision with stricter deployment constraints, then re-evaluate tradeoffs.</p><details><summary>New 5-item quiz variant + answers</summary><ol><li>Restate the principle in your own words.</li><li>Select safer default and justify.</li><li>Name a warning sign in logs/behavior.</li><li>Near-transfer scenario decision.</li><li>Far-transfer planning decision.</li></ol><p class="small">Answers: must align with source-consistent deployment-first reasoning and explicit tradeoff checks.</p></details></div>`:''}
+       <p class="small">Cited from source: <a href="${SOURCE_URL}">${SOURCE_URL}</a></p>`;
+     kWrap.appendChild(card);
+   });
+   uWrap.appendChild(sec);
+ });
+ bindInputs(); renderDash();
+}
+
+function bindInputs(){
+ document.querySelectorAll('[data-kp]').forEach(el=>{
+  el.onchange=()=>{
+    const p=loadProgress(); const id=el.dataset.kp; const field=el.dataset.field; p[id]=p[id]||{};
+    if(field==='mastered'){ p[id].mastered=el.checked; if(el.checked && !p[id].masteredDate) p[id].masteredDate=new Date().toISOString(); }
+    else if(field==='workedCorrect'){ p[id].workedCorrect=el.checked; }
+    else if(field==='quizScore'){ p[id].quizScore=Number(el.value||0); }
+    const st=statusOf(p[id]);
+    if(st==='FAIL'){p[id].failCount=(p[id].failCount||0)+1;} else if(st==='PASS'){p[id].failCount=0; if(!p[id].masteredDate && p[id].mastered) p[id].masteredDate=new Date().toISOString();}
+    saveProgress(p); render();
+  }
+ });
+}
+function renderDash(){
+ const p=loadProgress();
+ const total=kps.length; const mastered=kps.filter(k=>p[k.id]?.mastered).length;
+ document.getElementById('dashboard').textContent=`Progress: ${mastered}/${total} KPs marked mastered (${Math.round(mastered*100/total)}%). Pass rule: >=80% + worked item correct.`;
+ const today=new Date(); today.setHours(0,0,0,0); const due=[];
+ kps.forEach(k=>{const m=p[k.id]?.masteredDate; if(m){dueDates(m).forEach(d=>{const days=Math.ceil((d-today)/86400000); due.push({kp:k.id,date:fmt(d),days});});}});
+ due.sort((a,b)=>a.days-b.days);
+ const dueToday=due.filter(x=>x.days<=0).slice(0,20).map(x=>`${x.kp} (${x.date})`).join(', ')||'None';
+ const upcoming=due.filter(x=>x.days>0&&x.days<=14).slice(0,20).map(x=>`${x.kp} in ${x.days}d`).join(', ')||'None';
+ document.getElementById('dueList').innerHTML=`<strong>Due today/overdue:</strong> ${dueToday}<br/><strong>Upcoming (14d):</strong> ${upcoming}`;
+}
+
+document.getElementById('search').addEventListener('input',render);
+document.getElementById('clearSearch').addEventListener('click',()=>{document.getElementById('search').value='';render();});
+document.getElementById('downloadJson').addEventListener('click',()=>{
+ const blob=new Blob([document.getElementById('curriculum-json').textContent],{type:'application/json'});
+ const a=document.createElement('a'); a.href=URL.createObjectURL(blob); a.download='mathacademy-way-curriculum.json'; a.click(); URL.revokeObjectURL(a.href);
+});
+
+const anki=[
+["What should debugging prioritize before fancy RL?","System identification and state estimation first."],["What does projected gravity provide?","Orientation-relevant context in a compact observation."],["When can references help vs vanilla rewards?","When task rewards under-specify desired motion style."],["Why avoid high torque clipping during exploration?","Saturation can collapse usable exploration signals."],["K_d rule of thumb in the spec?","Approximately Kp/20 (heuristic)."],["What is Ka in this program?","An exploration dial in gain tuning heuristics."],["What is asymmetric actor-critic?","Deployable actor observations, privileged critic during training."],["Why distill teacher to student?","To retain capability while meeting deployment constraints."],["What curriculum thresholds are highlighted?","75%/50% success progression-regression heuristic."],["Reward design priority?","Large positive task terms, smaller penalties."],["Net-positive reward means?","Useful behavior yields positive signal early."],["L1 vs L2 kernel tradeoff?","Fidelity vs jitter/smoothness tradeoff."],["Why train beyond apparent convergence?","Late improvements can appear after early plateaus."],["What should happen to policy std over training?","Typically decrease/converge if learning stabilizes."],["When use history/recurrence?","When partial observability remains after estimator improvements."],["Mismatch can be modeled as what?","A POMDP framing."],["Motion methods lie on what continuum?","Behavior cloning to reinforcement learning spectrum."],["AMP vs feature imitation choice depends on?","Desired tradeoffs and deployment constraints."],["Unit 0 status?","Bridge material explicitly labeled not in source."],["If KP fails twice, what then?","Reopen KP and key prerequisites for remediation."]
+];
+const at=document.getElementById('ankiTable');
+anki.forEach((c,i)=>{const tr=document.createElement('tr'); tr.innerHTML=`<td>${i+1}</td><td>${c[0]}<div class="small">Source: <a href="${SOURCE_URL}">link</a></div></td><td>${c[1]}</td><td><button type="button" data-copy="${(c[0]+' — '+c[1]).replace(/"/g,'&quot;')}">Copy</button></td>`; at.appendChild(tr);});
+at.addEventListener('click',e=>{if(e.target.dataset.copy){navigator.clipboard?.writeText(e.target.dataset.copy); e.target.textContent='Copied'; setTimeout(()=>e.target.textContent='Copy',900);}});
+render();
+</script>
+</body>
+</html>

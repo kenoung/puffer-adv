@@ -1,301 +1,40 @@
 <!doctype html>
 <html lang="en">
-  <head>
-    <meta charset="UTF-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>Puffer Advantage Learning Studio</title>
-    <meta
-      name="description"
-      content="A concept-first teaching interface for learning Puffer Advantage in 5-10 minute units."
-    />
-    <link rel="preconnect" href="https://fonts.googleapis.com" />
-    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
-    <link
-      href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=IBM+Plex+Mono:wght@500;600&display=swap"
-      rel="stylesheet"
-    />
-    <link rel="stylesheet" href="styles.css" />
-  </head>
-  <body>
-    <header class="app-header">
-      <div>
-        <p class="overline">Teaching-first interface</p>
-        <h1>Puffer Advantage: 2-Hour Concept Studio</h1>
-      </div>
-      <div class="header-meta">
-        <p><strong>Format:</strong> 17 units × 5–10 min</p>
-        <p><strong>Goal:</strong> Internalize concepts, not just definitions</p>
-        <p><strong>Progress:</strong> <span id="progress-count">0 / 17 units completed</span></p>
-      </div>
-    </header>
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Puffer Adv — Curriculum Index</title>
+  <style>
+    :root{--bg:#f6f8fc;--panel:#fff;--text:#141923;--muted:#5e6778;--line:#dbe2ee;--accent:#2f6df6}
+    @media (prefers-color-scheme: dark){:root{--bg:#0d1118;--panel:#151b26;--text:#e8edf9;--muted:#a9b3c7;--line:#2b3548;--accent:#8ab0ff}}
+    *{box-sizing:border-box}
+    body{margin:0;font-family:Inter,Segoe UI,Roboto,Arial,sans-serif;background:var(--bg);color:var(--text)}
+    main{max-width:900px;margin:0 auto;padding:1.2rem}
+    .card{background:var(--panel);border:1px solid var(--line);border-radius:12px;padding:1rem;margin:.8rem 0}
+    h1{margin:.2rem 0 .4rem} p{margin:.35rem 0;color:var(--muted)}
+    ul{padding-left:1.2rem} a{color:var(--accent)}
+  </style>
+</head>
+<body>
+  <main>
+    <section class="card">
+      <h1>Puffer Adv — Page Index</h1>
+      <p>This landing page organizes curriculum pages into a simple directory-style index.</p>
+    </section>
 
-    <main class="layout">
-      <aside class="sidebar" aria-label="Course overview" data-collapsed="false">
-        <div class="sidebar-header">
-          <h2>Course map</h2>
-          <button
-            class="sidebar-toggle"
-            type="button"
-            aria-expanded="true"
-            aria-controls="course-map-content"
-          >
-            Hide map
-          </button>
-        </div>
-        <div id="course-map-content" class="sidebar-content">
-          <p class="sidebar-copy">
-            Work top to bottom. Each unit has three actions: explain, practice, and self-check.
-          </p>
-          <ol class="topic-list">
-          <li><a href="#u1">1. What RL is</a></li>
-          <li><a href="#u2">2. Returns & discounting</a></li>
-          <li><a href="#u3">3. Values and prediction targets</a></li>
-          <li><a href="#u4">4. Advantage</a></li>
-          <li><a href="#u5">5. Policy gradient intuition</a></li>
-          <li><a href="#u6">6. Actor–critic framing</a></li>
-          <li><a href="#u7">7. TD error</a></li>
-          <li><a href="#u8">8. n-step returns</a></li>
-          <li><a href="#u9">9. Eligibility traces / λ</a></li>
-          <li><a href="#u10">10. GAE</a></li>
-          <li><a href="#u11">11. On-policy vs off-policy</a></li>
-          <li><a href="#u12">12. Importance sampling ratios</a></li>
-          <li><a href="#u13">13. Clipping and truncation</a></li>
-          <li><a href="#u14">14. V-trace</a></li>
-          <li><a href="#u15">15. Puffer Advantage</a></li>
-          <li><a href="#u16">16. Why PufferLib uses it</a></li>
-          <li><a href="#u17">17. Sanity checks and failure modes</a></li>
-          </ol>
-        </div>
-      </aside>
-
-      <section class="units" aria-label="Learning units">
-        <article class="unit" id="u1">
-          <header>
-            <p class="unit-kicker">Unit 1 • 7 min</p>
-            <h2>What reinforcement learning is</h2>
-          </header>
-          <p><strong>Core idea:</strong> RL studies how an agent learns by interacting with an environment over time.</p>
-          <ul>
-            <li><strong>Explain:</strong> Agent takes action in state, receives reward, transitions to next state, repeats until terminal.</li>
-            <li><strong>Practice:</strong> Draw the loop: <span class="mono">s → a → r, s' → ...</span>.</li>
-            <li><strong>Self-check:</strong> What makes RL different from static prediction?</li>
-          </ul>
-        </article>
-
-        <article class="unit" id="u2">
-          <header>
-            <p class="unit-kicker">Unit 2 • 7 min</p>
-            <h2>Returns and discounting</h2>
-          </header>
-          <p><strong>Core idea:</strong> We optimize long-term return, often discounted by <span class="mono">γ</span>.</p>
-          <ul>
-            <li><strong>Explain:</strong> Discounting balances near-term vs far-term rewards and stabilizes learning targets.</li>
-            <li><strong>Practice:</strong> Compare <span class="mono">γ=0.9</span> vs <span class="mono">γ=0.99</span> on same reward sequence.</li>
-            <li><strong>Self-check:</strong> Why is <span class="mono">γ</span> a credit-assignment horizon knob?</li>
-          </ul>
-        </article>
-
-        <article class="unit" id="u3">
-          <header>
-            <p class="unit-kicker">Unit 3 • 8 min</p>
-            <h2>Values: what we choose to predict</h2>
-          </header>
-          <p><strong>Core idea:</strong> <span class="mono">V(s)</span> predicts state quality; <span class="mono">Q(s,a)</span> predicts action quality.</p>
-          <ul>
-            <li><strong>Explain:</strong> Value prediction supports bootstrapping and lower-variance updates than raw Monte Carlo returns.</li>
-            <li><strong>Practice:</strong> For one state, list one plausible <span class="mono">V</span> and two different <span class="mono">Q</span> values.</li>
-            <li><strong>Self-check:</strong> Why introduce value estimates at all?</li>
-          </ul>
-        </article>
-
-        <article class="unit" id="u4">
-          <header>
-            <p class="unit-kicker">Unit 4 • 7 min</p>
-            <h2>Advantage as the central signal</h2>
-          </header>
-          <p><strong>Core idea:</strong> <span class="mono">A(s,a)=Q(s,a)-V(s)</span> measures better/worse than expected.</p>
-          <ul>
-            <li><strong>Explain:</strong> Advantage recenters learning around a baseline expectation.</li>
-            <li><strong>Practice:</strong> Compute advantage for two actions with same state value baseline.</li>
-            <li><strong>Self-check:</strong> Why is advantage usually better than raw return for policy learning?</li>
-          </ul>
-        </article>
-
-        <article class="unit" id="u5">
-          <header>
-            <p class="unit-kicker">Unit 5 • 8 min</p>
-            <h2>Policy gradient idea (without heavy math)</h2>
-          </header>
-          <p><strong>Core idea:</strong> Increase probability of actions that yielded positive learning signals.</p>
-          <ul>
-            <li><strong>Explain:</strong> Naïve Monte Carlo gradients are high variance; baseline subtraction keeps direction but reduces noise.</li>
-            <li><strong>Practice:</strong> Classify a positive/negative advantage update as “increase” or “decrease” action probability.</li>
-            <li><strong>Self-check:</strong> What does a baseline change, and what does it not change?</li>
-          </ul>
-        </article>
-
-        <article class="unit" id="u6">
-          <header>
-            <p class="unit-kicker">Unit 6 • 6 min</p>
-            <h2>Actor–critic framing</h2>
-          </header>
-          <p><strong>Core idea:</strong> Actor chooses actions; critic estimates value signals for learning.</p>
-          <ul>
-            <li><strong>Explain:</strong> Critic reduces policy update variance and enables bootstrapping.</li>
-            <li><strong>Practice:</strong> Label each model output as actor-side or critic-side.</li>
-            <li><strong>Self-check:</strong> What failure happens when critic estimates are systematically biased?</li>
-          </ul>
-        </article>
-
-        <article class="unit" id="u7">
-          <header>
-            <p class="unit-kicker">Unit 7 • 7 min</p>
-            <h2>TD error as the building block</h2>
-          </header>
-          <p><strong>Core idea:</strong> TD residual <span class="mono">δ_t = r_t + γV(s_{t+1}) - V(s_t)</span> is a local surprise signal.</p>
-          <ul>
-            <li><strong>Explain:</strong> Positive <span class="mono">δ</span> means “better than critic predicted”; negative means worse.</li>
-            <li><strong>Practice:</strong> Compute one <span class="mono">δ_t</span> from sample values.</li>
-            <li><strong>Self-check:</strong> How does TD error connect to advantage estimation?</li>
-          </ul>
-        </article>
-
-        <article class="unit" id="u8">
-          <header>
-            <p class="unit-kicker">Unit 8 • 7 min</p>
-            <h2>n-step returns and bias–variance tradeoff</h2>
-          </header>
-          <p><strong>Core idea:</strong> 1-step TD is lower variance/higher bias; Monte Carlo is lower bias/higher variance.</p>
-          <ul>
-            <li><strong>Explain:</strong> n-step methods interpolate between these extremes.</li>
-            <li><strong>Practice:</strong> Place 1-step, 5-step, full return on a bias–variance spectrum.</li>
-            <li><strong>Self-check:</strong> Why does mixing horizons help in practice?</li>
-          </ul>
-        </article>
-
-        <article class="unit" id="u9">
-          <header>
-            <p class="unit-kicker">Unit 9 • 8 min</p>
-            <h2>Eligibility traces / λ intuition</h2>
-          </header>
-          <p><strong>Core idea:</strong> Traces let credit flow backward over multiple timesteps.</p>
-          <ul>
-            <li><strong>Explain:</strong> <span class="mono">λ</span> controls how much long-range TD information is retained.</li>
-            <li><strong>Practice:</strong> Contrast behaviors when <span class="mono">λ≈0</span> vs <span class="mono">λ≈1</span>.</li>
-            <li><strong>Self-check:</strong> What does a larger λ do to bias and variance?</li>
-          </ul>
-        </article>
-
-        <article class="unit" id="u10">
-          <header>
-            <p class="unit-kicker">Unit 10 • 8 min</p>
-            <h2>Generalized Advantage Estimation (GAE)</h2>
-          </header>
-          <p><strong>Core idea:</strong> GAE is a weighted sum of TD residuals across future timesteps.</p>
-          <ul>
-            <li><strong>Explain:</strong> GAE blends temporal horizons using <span class="mono">γ</span> and <span class="mono">λ</span>.</li>
-            <li><strong>Practice:</strong> Qualitatively compare smoother vs noisier advantages as λ changes.</li>
-            <li><strong>Self-check:</strong> How does λ tuning change learning behavior in practice?</li>
-          </ul>
-        </article>
-
-        <article class="unit" id="u11">
-          <header>
-            <p class="unit-kicker">Unit 11 • 6 min</p>
-            <h2>On-policy vs off-policy</h2>
-          </header>
-          <p><strong>Core idea:</strong> On-policy updates assume data came from the current policy.</p>
-          <ul>
-            <li><strong>Explain:</strong> In PPO-style loops, policy lag can make mini-batches slightly off-policy.</li>
-            <li><strong>Practice:</strong> Identify one source of policy lag in distributed training.</li>
-            <li><strong>Self-check:</strong> Why does off-policy drift matter for stable updates?</li>
-          </ul>
-        </article>
-
-        <article class="unit" id="u12">
-          <header>
-            <p class="unit-kicker">Unit 12 • 7 min</p>
-            <h2>Importance sampling ratios</h2>
-          </header>
-          <p><strong>Core idea:</strong> Ratios reweight old-policy samples toward current-policy expectations.</p>
-          <ul>
-            <li><strong>Explain:</strong> Large ratios create unstable variance and gradient spikes.</li>
-            <li><strong>Practice:</strong> Evaluate whether ratio values <span class="mono">0.8, 1.1, 3.9</span> look safe.</li>
-            <li><strong>Self-check:</strong> Why are raw ratios often impractical in deep RL?</li>
-          </ul>
-        </article>
-
-        <article class="unit" id="u13">
-          <header>
-            <p class="unit-kicker">Unit 13 • 8 min</p>
-            <h2>Clipping and truncation for stability</h2>
-          </header>
-          <p><strong>Core idea:</strong> Clipping adds deliberate bias to cap variance and protect optimization.</p>
-          <ul>
-            <li><strong>Explain:</strong> Distinguish clipping for direct correction vs clipping for trace propagation.</li>
-            <li><strong>Practice:</strong> Mark which clip role affects immediate correction vs multi-step carry.</li>
-            <li><strong>Self-check:</strong> Why is this bias often worth it?</li>
-          </ul>
-        </article>
-
-        <article class="unit" id="u14">
-          <header>
-            <p class="unit-kicker">Unit 14 • 8 min</p>
-            <h2>V-trace, conceptually</h2>
-          </header>
-          <p><strong>Core idea:</strong> V-trace combines clipped off-policy correction with trace-style backups.</p>
-          <ul>
-            <li><strong>Explain:</strong> It is designed for policy-laggy, large-scale actor-learner settings.</li>
-            <li><strong>Practice:</strong> Explain in one sentence how V-trace differs from pure on-policy GAE.</li>
-            <li><strong>Self-check:</strong> When does V-trace become especially useful?</li>
-          </ul>
-        </article>
-
-        <article class="unit" id="u15">
-          <header>
-            <p class="unit-kicker">Unit 15 • 10 min</p>
-            <h2>Puffer Advantage target concept</h2>
-          </header>
-          <p><strong>Core idea:</strong> Puffer Advantage blends GAE mechanics with V-trace-style clipped corrections.</p>
-          <ul>
-            <li><strong>Explain:</strong> Inputs include values, rewards, terminals, ratios, <span class="mono">γ</span>, <span class="mono">λ</span>, and two clip parameters.</li>
-            <li><strong>Practice:</strong> Map each input to its role (discounting, trace weighting, off-policy correction, termination handling).</li>
-            <li><strong>Self-check:</strong> Why does it recover GAE-like and V-trace-like behavior in different regimes?</li>
-          </ul>
-        </article>
-
-        <article class="unit" id="u16">
-          <header>
-            <p class="unit-kicker">Unit 16 • 6 min</p>
-            <h2>Why PufferLib uses it</h2>
-          </header>
-          <p><strong>Core idea:</strong> It improves robustness when rollouts are imperfectly on-policy.</p>
-          <ul>
-            <li><strong>Explain:</strong> Practical PPO loops can have stale data; clipped trace corrections stabilize learning.</li>
-            <li><strong>Practice:</strong> Describe where this fits in a rollout → advantage → update pipeline.</li>
-            <li><strong>Self-check:</strong> Which training symptoms suggest policy-lag instability?</li>
-          </ul>
-        </article>
-
-        <article class="unit" id="u17">
-          <header>
-            <p class="unit-kicker">Unit 17 • 9 min</p>
-            <h2>Sanity checks and failure modes</h2>
-          </header>
-          <p><strong>Core idea:</strong> Debugging advantage systems requires tight semantic checks.</p>
-          <ul>
-            <li><strong>Explain:</strong> Verify terminal masking, truncation semantics, and normalization/scaling behavior.</li>
-            <li><strong>Practice:</strong> Walk a tiny trajectory by hand and compare code outputs term-by-term.</li>
-            <li><strong>Self-check:</strong> Which bug is most likely if advantages explode after episode boundaries?</li>
-          </ul>
-        </article>
-      </section>
-    </main>
-
-    <footer class="app-footer">
-      <p>Tip: Treat each unit as a short learning sprint. Explain aloud, solve one mini-problem, then self-check.</p>
-    </footer>
-
-    <script src="script.js"></script>
-  </body>
+    <section class="card">
+      <h2>Curriculum Pages</h2>
+      <ul>
+        <li>
+          <a href="pages/deployment-ready-rl-curriculum.html">Deployment-Ready RL Curriculum (primary)</a>
+          <p>Renamed from <code>mathacademy-way.html</code> to better reflect the actual subject matter and source alignment.</p>
+        </li>
+        <li>
+          <a href="pages/mathacademy-way-legacy.html">Mathacademy Way Curriculum (legacy variant)</a>
+          <p>Content that previously lived in <code>index.html</code>, moved into its own page to keep this index clean.</p>
+        </li>
+      </ul>
+    </section>
+  </main>
+</body>
 </html>
